@@ -1,4 +1,4 @@
-[Презентация "Мои новости".pdf](https://github.com/FDMan12/news-with-tags/files/14573896/default.pdf)## news-with-tags
+## news-with-tags
 # TP-3-4
 Выполняется студентами группы:
 - Михайлов Вадим (Team Lead, Backend)
