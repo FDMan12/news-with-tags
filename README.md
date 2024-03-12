@@ -13,8 +13,7 @@
 
 Создание и управление новостной лентой регулируется редакторами сервиса. Полное управление сервисом осуществляют администраторы, назначающие редакторов.
 # Сервисы
-- [Vue.js](https://ru.vuejs.org/index.html)
-- [Miro](https://miro.com/ru/)
+- [Miro](https://miro.com/app/board/uXjVNoCHs2M=/)
 - [Slack](https://slack.com/)
 - [Figma](https://www.figma.com/)
 # Документация
