@@ -20,6 +20,6 @@
 - Сопроводительное письмо: [docx]()
 - Презентация: [pdf](Documentation/my_news_presentation.pdf), [pptx](Documentation/my_news_presentation.pptx)
 # Видеозаписи
-- Видеопрезентация: [m4v](https://github.com/FDMan12/news-with-tags/blob/main/Media/Видеопрезентация.m4v)
+- Видеопрезентация: [m4v](Media/Videoprezentatsia.m4v)
 # Лицензия
 [GNU General Public License v3.0](LICENSE)
