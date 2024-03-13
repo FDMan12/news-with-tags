@@ -16,10 +16,10 @@
 - [Miro](https://miro.com/app/board/uXjVNoCHs2M=/)
 - [Figma](https://www.figma.com/file/ZGBvVvL2H1JGse6unaiunH/Untitled?type=design&node-id=12-213&mode=design&t=n219tiihvn57Q5Bi-0)
 # Документация
-- Техническое задание: [pdf](), [docx]()
+- Техническое задание: [pdf](Documentation/ТЗ.pdf), [doc](Documentation/ТЗ.doc), [docx](Documentation/ТЗ.docx)
 - Сопроводительное письмо: [docx]()
-- Презентация: [pdf](https://github.com/FDMan12/news-with-tags/blob/main/Documentation/Презентация%20%22Мои%20новости%22.pdf), [pptx]()
+- Презентация: [pdf](Documentation/my_news_presentation.pdf), [pptx](Documentation/my_news_presentation.pptx)
 # Видеозаписи
-- Видеопрезентация: [m4v]()
+- Видеопрезентация: [m4v](Media/Videoprezentatsia.m4v)
 # Лицензия
 [GNU General Public License v3.0](LICENSE)
