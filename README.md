@@ -17,7 +17,7 @@
 - [Figma](https://www.figma.com/file/ZGBvVvL2H1JGse6unaiunH/Untitled?type=design&node-id=12-213&mode=design&t=n219tiihvn57Q5Bi-0)
 # Документация
 - Техническое задание: [pdf](Documentation/ТЗ.pdf), [doc](Documentation/ТЗ.doc), [docx](Documentation/ТЗ.docx)
-- Сопроводительное письмо: [docx]()
+- Сопроводительное письмо: [docx](Documentation/cover_letter.docx)
 - Презентация: [pdf](Documentation/my_news_presentation.pdf), [pptx](Documentation/my_news_presentation.pptx)
 # Видеозаписи
 - Видеопрезентация: [m4v](Media/Videoprezentatsia.m4v)
