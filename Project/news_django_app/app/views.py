@@ -5,17 +5,21 @@ import json
 
 # Create your views here.
 
-class FrontendTemplateView(View):
-    def get(self, request):
-        # Возвращаем шаблон без изменений для GET-запросов
-        return render(request, 'index.html')
-    
-    def post(self, request):
+class BaseTemplateView(View):  # Base
+    template_name = 'index.html'
+
+    def get_context_data(self, request):
         # Собираем все параметры запроса в контекст
-        context = {
+        return {
             'post_data': request.body,
             'get_data': json.dumps(request.GET)  # Сериализуем в JSON
         }
 
+    def get(self, request):
+        # Возвращаем шаблон без изменений для GET-запросов
+        return render(request, self.template_name)
+
+    def post(self, request):
         # Отправляем клиенту отрендеренный с контекстом шаблон
-        return render(request, 'index.html', context)
+        return render(request, self.template_name, self.get_context_data(request))
+

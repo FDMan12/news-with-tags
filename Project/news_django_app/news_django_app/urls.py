@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from app.views import FrontendTemplateView
+from app.views import *
 
 urlpatterns = [
-    path('', FrontendTemplateView.as_view())
+    path('', BaseTemplateView.as_view()), # main
 ]
 urlpatterns += staticfiles_urlpatterns()
