@@ -21,6 +21,6 @@
 - Презентация: [pdf](Documentation/my_news_presentation.pdf), [pptx](Documentation/my_news_presentation.pptx)
 # Видеозаписи
 - Видеопрезентация: [m4v](Media/Videoprezentatsia.m4v)
-- Видеопрезентация окон: [YouTube]()
+- Видеопрезентация окон: [YouTube](https://youtu.be/QFS7qEunuGc)
 # Лицензия
 [GNU General Public License v3.0](LICENSE)
