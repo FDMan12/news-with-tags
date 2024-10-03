@@ -1,58 +1,152 @@
+<!-- src/views/Registration.vue -->
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="registration-page">
+    <div class="registration-form">
+      <h2>Регистрация</h2>
+      <form @submit.prevent="register">
+        <div class="form-group">
+          <label for="username">Имя пользователя</label>
+          <input type="text" id="name" v-model="name" required />
+        </div>
+        <div class="form-group">
+          <label for="username">Фамилия пользователя</label>
+          <input type="text" id="surname" v-model="surname" required />
+        </div>
+        <div class="form-group">
+          <label for="username">Отчество пользователя</label>
+          <input type="text" id="patronymic" v-model="patronymic" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Логин</label>
+          <input type="email" id="login" v-model="login" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Почта</label>
+          <input type="email" id="email" v-model="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" v-model="password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Повторите пароль</label>
+          <input type="password" id="confirmPassword" v-model="confirmPassword" required />
+        </div>
+        <div class="form-group">
+          <p v-if="passwordsMatch" class="password-match">Пароли совпадают</p>
+          <p v-else class="password-no-match">Пароли не совпадают</p>
+        </div>
+        <button type="submit" :disabled="!passwordsMatch">Зарегистрироваться</button>
+      </form>
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from '../components/Footer.vue';
+import api from "@/api";
+import axios from 'axios';
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Registration',
+  components: {
+    Footer
+  },
+  data() {
+    return {
+      name: '',
+      surname: '',
+      patronymic: '',
+      login: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      passwordsMatch: true,
+    };
+  },
+  watch: {
+    password() {
+      this.checkPasswordsMatch();
+    },
+    confirmPassword() {
+      this.checkPasswordsMatch();
+    },
+  },
+  methods: {
+    checkPasswordsMatch() {
+      this.passwordsMatch = this.password === this.confirmPassword;
+    },
+    async register() {
+      try {
+        const response = await axios.post('api/register/', {
+          name: this.name,
+          surname: this.surname,
+          patronymic: this.patronymic,
+          mail: this.email,
+          login: this.login,
+          password: this.password,
+          confirm_password: this.confirmPassword
+        });
+        console.log('User registered:', response.data);
+        localStorage.setItem('authToken', response.data.token);
+        this.$router.push({ name: 'HomePage' });
+      } catch (error) {
+        console.error('Error registering user:', error);
+      }
+
+    }
   }
-}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.registration-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding-bottom: 50px; /* чтобы был отступ для футера */
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.registration-form {
+  background-color: #B5A688;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.form-group {
+  margin-bottom: 15px;
 }
-a {
-  color: #42b983;
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.password-match {
+  color: green;
+}
+.password-no-match {
+  color: red;
+}
+button {
+  background-color: #6D8444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 </style>
