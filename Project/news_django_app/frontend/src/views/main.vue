@@ -1,450 +1,245 @@
 <template>
-  <div class="page">
-    <div class="search-bar">
-      <input type="text" placeholder="Поиск..." class="search-input">
-    </div>
-
-    <div class="news-for-you">
-      <span style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #3d3d3d;">
-        Новости для вас
-        </span>
-    </div>
-
-    <div class="my-magazines-button">
-      <span style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #3d3d3d;">
-        Мои журналы
-        </span>
-    </div>
-
-    <div class="todays">
-      <span style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #3d3d3d;">
-        Сегодняшнее
-        </span>
-    </div>
-
-    <div class="mynews">
-      <span style="font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #3d3d3d;">
-          Мои новости
-        </span>
-    </div>
-
-    <div class="chosentag">
-      <span style="font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #3d3d3d;">
-          Избранные теги
-        </span>
-    </div>
-
-    <div class="chosentags">
-      <span style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: black;">
-          Спорт<br>Музыка<br>Кино<br>Наука
-        </span>
-    </div>
-
-    <div class="local-new">
-      <span style="font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #3d3d3d;">
-          Местные новости
-        </span>
-    </div>
-
-    <div class="local-news">
-      <span style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: black;">
-          Москва<br>Липецк<br>Воронеж<br>Пермь
-        </span>
-    </div>
-
-    <div class="my-magazine">
-      <span style="font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #3d3d3d;">
-          Мои журналы
-        </span>
-    </div>
-
-    <div class="my-magazines">
-      <span style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: black;">
-          New York Times<br>Биографии<br>Esquire<br>Elle
-        </span>
-    </div>
-
-    <div class="left-menu">
-      <div class="news-link" @click="goToNewsPage" style="margin-left: 250px;">
-        <span style="font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; color: white;">
-          Мои<br>Новости
-        </span>
-      </div>
-    </div>
-
-    <div class="top-block">
-      <div class="account-info" @click="goToAccountPage">
-        <div class="circle"></div>
-        <div class="account-text">
-          Мой<br>Аккаунт
+  <div class="news-selection-page">
+    <Header />
+    <div class="main-content">
+      <Sidebar />
+        <div class="news-content">
+          <h1>Новости для вас</h1>
+          <input v-model="searchQuery" placeholder="Тег для поиска" />
+          <button @click="search">Поиск</button>
+          <TagsList @tag-selected="fetchNewsByTag" />
+          <router-link to="/create-post">Создать новость</router-link>
+          <div class="news-grid">
+            <div class="news-card" v-for="news in newsList" :key="news.id">
+              <div class="news-image"></div>
+              <div class="news-details">
+                <h3>
+                  <router-link :to="{ name: 'NewsDetail', params: { id: news.id } }">{{ news.title }}</router-link>
+                </h3>
+                <p>
+                  <router-link :to="{ name: 'NewsDetail', params: { id: news.id } }">{{ news.description }}</router-link>
+                </p>
+              </div>
+              <button @click="deletePost(post.id)">Delete</button>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
-
-    <div class="news1" @click="goToAccountPage">
-        <div class="square1"></div>
-        <div class="text1">
-          New York Times<br><br>Лучшие кофейни в Нью-Йорке по версии Шакиры
-        </div>
-      </div>
-      <div class="news2" @click="goToAccountPage">
-        <div class="square2"></div>
-        <div class="text2">
-          New York Times<br><br>Лучшие кофейни в Нью-Йорке по версии Шакиры
-        </div>
-      </div>
-      <div class="news3" @click="goToAccountPage">
-        <div class="square3"></div>
-        <div class="text3">
-          New York Times<br><br>Лучшие кофейни в Нью-Йорке по версии Шакиры
-        </div>
-      </div>
-
-    <div class="right-block"></div>
-    <div class="bottom-block">
-      <div class="footer-links">
-        <div class="footer-link" @click="goToAboutPage">О нас</div>
-        <div class="footer-link" @click="goToHelpPage">Помощь</div>
-        <div class="footer-link" @click="goToContactsPage">Контакты</div>
-      </div>
-    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import api from "@/api";
+
 export default {
-  name: 'App',
-  methods: {
-    goToNewsPage() {
-      // Реализуйте переход на страницу новостей
-    },
-    goToAccountPage() {
-      // Реализуйте переход на страницу аккаунта
-    },
-    goToAboutPage() {
-      // Реализуйте переход на страницу "О нас"
-    },
-    goToHelpPage() {
-      // Реализуйте переход на страницу "Помощь"
-    },
-    goToContactsPage() {
-      // Реализуйте переход на страницу "Контакты"
+  name: "NewsSelectionPage",
+  components: {Sidebar, Footer, Header},
+  data() {
+    return {
+      newsList: [],
+      searchQuery: ''
+    };
+  },
+  created() {
+    this.fetchNews();
+  },
+  watch: {
+    '$route.query.q': {
+      immediate: true,
+      handler(query) {
+        if (query) {
+          this.fetchNewsByTag(query);
+        } else {
+          this.fetchNews();
+        }
+      }
     }
+  },
+  async mounted() {
+    try {
+      const response = await api.get('/posts/');
+      this.newsList = response.data;
+    } catch (error) {
+      console.error('Error fetching news:', error);
+    }
+  },
+  methods: {
+    async fetchNews() {
+      try {
+        const response = await api.get('/posts/');
+        this.newsList = response.data;
+      } catch (error) {
+        console.error('Error fetching news:', error);
+      }
+    },
+    async fetchNewsByTag(tagName) {
+      try {
+        const response = await api.get(`/posts/tag/${tagName}/`);
+        this.newsList = response.data;
+      } catch (error) {
+        console.error('Error fetching news by tag:', error);
+      }
+    },
+    search() {
+      this.$router.push({ path: '/', query: { q: this.searchQuery } });
+    },
+    async deletePost(postId) {
+      try {
+        await api.delete(`/posts/${postId}/`);
+        await this.fetchNews();
+      } catch (error) {
+        console.error('Error deleting post:', error);
+      }
+    }
+
+
   }
+
 };
 </script>
 
-<style>
-.page {
-  background-color: white;
+<style scoped>
+.news-selection-page {
   display: flex;
   flex-direction: column;
-  height: 200vh;
-  position: relative;
+  min-height: 100vh;
 }
 
-.top-block {
-  height: 157px;
-  background-color: #628348;
-  width: 100%;
-  position: absolute;
-  top: 0;
+header {
+  background-color: #b2a38f;
+  padding: 10px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-}
-
-.account-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.circle {
-  position: absolute;
-  top: 10px;
-  left: 1800px;
-  width: 70px;
-  height: 70px;
-  background-color: #777777;
-  border-radius: 50%;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-.account-text {
-  position: absolute;
-  top: 90px;
-  left: 1825px;
-  color: white;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  text-align: center;
-  margin-left: -20px;
-}
-
-.square1 {
-  position: absolute;
-  top: 200px;
-  left: 300px;
-  width: 400px;
-  height: 400px;
-  background-color: #628348;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-.text1 {
-  position: absolute;
-  top: 620px;
-  left: 300px;
-  width: 400px;
-  height: 400px;
-  color: Black;
-  font-size: 20px;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  text-align: left;
-  margin-left: 0px;
-}
-
-.square2 {
-  position: absolute;
-  top: 200px;
-  left: 875px;
-  width: 400px;
-  height: 400px;
-  background-color: #628348;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-.text2 {
-  position: absolute;
-  top: 620px;
-  left: 875px;
-  width: 400px;
-  height: 400px;
-  color: Black;
-  font-size: 20px;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  text-align: left;
-  margin-left: 0px;
-}
-
-.square3 {
-  position: absolute;
-  top: 200px;
-  left: 1450px;
-  width: 400px;
-  height: 400px;
-  background-color: #628348;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-.text3 {
-  position: absolute;
-  top: 620px;
-  left: 1450px;
-  width: 400px;
-  height: 400px;
-  color: Black;
-  font-size: 20px;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  text-align: left;
-  margin-left: 0px;
-}
-
-.left-menu {
-  width: 250px;
-  min-height: 0;
-  height: calc(600vh - 157px);
-  background-color: #AAA58C;
-  position: relative;
-  z-index: 2;
-}
-
-.news-link {
-  padding: 20px;
-  cursor: pointer;
-}
-
-.right-block {
-  flex-grow: 1;
-  background-color: #ffffff;
-}
-
-.bottom-block {
-  height: 250px;
-  background-color: #252424;
-  width: 100%;
-}
-
-.footer-links {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 60%;
-  padding: 40px 381px;
 }
 
-.footer-link {
+.header-buttons button {
+  margin: 0 5px;
+  padding: 10px 20px;
+  background-color: #3fa046;
   color: white;
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.search-bar {
-  position: absolute;
-  top: 100px;
-  left: 20px;
-  width: 200px;
-  height: 25px;
-  background-color: white;
-  border-radius: 5px;
-  padding: 5px 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 999;
-}
-
-.news-for-you {
-  position: absolute;
-  top: 100px;
-  left: 500px;
-  width: 200px;
-  height: 25px;
-  background-color: white;
-  border-radius: 7px;
-  padding: 7px 5px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.my-magazines-button {
-  position: absolute;
-  top: 98px;
-  left: 925px;
-  width: 200px;
-  height: 25px;
-  background-color: white;
-  border-radius: 5px;
-  padding: 7px 5px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.todays {
-  position: absolute;
-  top: 98px;
-  left: 1350px;
-  width: 200px;
-  height: 25px;
-  background-color: white;
-  border-radius: 5px;
-  padding: 7px 5px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.search-input {
-  width: 100%; /* Ширина поля ввода равна ширине родительского элемента */
-  height: 100%; /* Высота поля ввода равна высоте родительского элемента */
   border: none;
-  outline: none;
-  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.mynews{
-  position: absolute;
-  top: 170px;
-  left: 10px;
-  width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+//.account {
+//  display: flex;
+//  align-items: center;
+//}
+//
+//.account-icon {
+//  width: 30px;
+//  height: 30px;
+//  background-color: #ccc;
+//  border-radius: 50%;
+//  margin-left: 10px;
+//}
+
+.main-content {
+  display: flex;
+  flex: 1;
 }
 
-.chosentag{
-  position: absolute;
-  top: 300px;
-  left: 10px;
+aside {
   width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+  background-color: #d3c6ac;
+  padding: 10px;
 }
 
-.chosentags{
-  position: absolute;
-  top: 330px;
-  left: 60px;
-  width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+//.search-bar {
+//  width: 100%;
+//  padding: 5px;
+//  margin-bottom: 10px;
+//}
+
+.my-news h2 {
+  margin-top: 0;
 }
 
-.local-new{
-  position: absolute;
-  top: 450px;
-  left: 10px;
-  width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+.my-news ul {
+  list-style: none;
+  padding: 0;
 }
 
-.local-news{
-  position: absolute;
-  top: 480px;
-  left: 60px;
-  width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+.my-news li {
+  margin-bottom: 5px;
 }
 
-.my-magazine{
-  position: absolute;
-  top: 600px;
-  left: 10px;
+//.news-cards {
+//  display: flex;
+//  flex-wrap: wrap;
+//  justify-content: center;
+//  padding: 10px;
+//  flex: 1;
+//  overflow-y: auto;
+//}
+
+.news-card {
+  background-color: #b2a38f;
   width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.my-magazines{
-  position: absolute;
-  top: 630px;
-  left: 60px;
-  width: 200px;
-  height: 25px;
-  border-radius: 5px;
-  padding: 5px 10px;
-  z-index: 999;
+//.news-card-image {
+//  width: 100%;
+//  height: 150px;
+//  background-color: #4caf50;
+//  border-radius: 4px;
+//  margin-bottom: 10px;
+//}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+footer nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.news-content {
+  flex: 1;
+  padding: 20px;
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.news-card {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+.news-image {
+  width: 100%;
+  height: 150px;
+  background-color: #6D8444;
+  margin-bottom: 10px;
+}
+.news-details {
+  text-align: center;
 }
 
 </style>
-

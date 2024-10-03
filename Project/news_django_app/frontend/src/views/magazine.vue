@@ -6,8 +6,8 @@
       <div class="magazines-list">
 
         <div>
-          <h1>{{ news.name }}</h1>
-          <p>{{ news.description }}</p>
+          <h1>{{ magazine.name }}</h1>
+          <p>{{ magazine.description }}</p>
           <div v-if="news.file">
             <a :href="news.file" target="_blank">Download File</a>
           </div>
@@ -39,13 +39,13 @@ export default {
   },
   data() {
     return {
-      news: {}
+      magazine: {}
     };
   },
   async mounted() {
     try {
-      const response = await api.get(`/posts/${this.id}/`);
-      this.news = response.data;
+      const response = await api.get(`/magazines/${this.id}/`);
+      this.magazine = response.data;
     } catch (error) {
       console.error('Error fetching news detail:', error);
     }
