@@ -1,8 +1,7 @@
 ## news-with-tags
 # TP-3-4
 Выполняется студентами группы:
-- Михайлов Вадим (Team Lead, Backend)
-- Поляков Артём (Frontend, QA-engineer)
+- Михайлов Вадим (Team Lead, Backend, Frontend)
 - Рындин Денис (Designer, Business analyst)
 # Тема
 Сервис для создания и управления персонализированными новостными лентами, с возможностью фильтрации контента по интересам.
@@ -18,6 +17,7 @@
 # Документация
 - Техническое задание: [pdf](Documentation/ТЗ.pdf), [doc](Documentation/ТЗ.doc), [docx](Documentation/ТЗ.docx)
 - Сопроводительное письмо: [docx](Documentation/cover_letter.docx)
+- Новое сопроводительное письмо: [docx](Documentation/cover_letter_new.docx)
 - Презентация: [pdf](Documentation/my_news_presentation.pdf), [pptx](Documentation/my_news_presentation.pptx)
 # Видеозаписи
 - Видеопрезентация: [m4v](Media/Videoprezentatsia.m4v)
