@@ -19,6 +19,8 @@
 </template>
 
 <script>
+
+
 import Footer from "@/components/Footer.vue";
 
 export default {
@@ -43,6 +45,11 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .login-page {
   display: flex;
   flex-direction: column;

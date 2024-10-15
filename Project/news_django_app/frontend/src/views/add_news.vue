@@ -109,6 +109,11 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;

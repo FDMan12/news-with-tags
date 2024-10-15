@@ -54,7 +54,11 @@ export default {
 </script>
 
 <style scoped>
-/* Добавьте стили для вашей страницы журналов */
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;

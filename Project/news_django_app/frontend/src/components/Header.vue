@@ -14,9 +14,25 @@
 </template>
 
 <script>
+import api from "@/api";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Header'
+  name: 'Header',
+  data() {
+    return {
+      userProfile: null,
+    };
+  },
+  mounted() {
+    api.getUserProfile()
+      .then(response => {
+        this.userProfile = response.data;
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке профиля:', error);
+      });
+  },
 };
 </script>
 

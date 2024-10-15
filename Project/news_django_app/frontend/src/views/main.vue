@@ -103,6 +103,16 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .news-selection-page {
   display: flex;
   flex-direction: column;
@@ -127,19 +137,6 @@ header {
   cursor: pointer;
 }
 
-//.account {
-//  display: flex;
-//  align-items: center;
-//}
-//
-//.account-icon {
-//  width: 30px;
-//  height: 30px;
-//  background-color: #ccc;
-//  border-radius: 50%;
-//  margin-left: 10px;
-//}
-
 .main-content {
   display: flex;
   flex: 1;
@@ -150,12 +147,6 @@ aside {
   background-color: #d3c6ac;
   padding: 10px;
 }
-
-//.search-bar {
-//  width: 100%;
-//  padding: 5px;
-//  margin-bottom: 10px;
-//}
 
 .my-news h2 {
   margin-top: 0;
@@ -170,15 +161,6 @@ aside {
   margin-bottom: 5px;
 }
 
-//.news-cards {
-//  display: flex;
-//  flex-wrap: wrap;
-//  justify-content: center;
-//  padding: 10px;
-//  flex: 1;
-//  overflow-y: auto;
-//}
-
 .news-card {
   background-color: #b2a38f;
   width: 200px;
@@ -189,14 +171,6 @@ aside {
   flex-direction: column;
   align-items: center;
 }
-
-//.news-card-image {
-//  width: 100%;
-//  height: 150px;
-//  background-color: #4caf50;
-//  border-radius: 4px;
-//  margin-bottom: 10px;
-//}
 
 footer {
   background-color: #333;

@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 .header-wide {
-  background-color: #4CAF50;
+  background-color: #6D8444;
   padding: 1em;
   text-align: center;
 }

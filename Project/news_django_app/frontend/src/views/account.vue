@@ -1,4 +1,5 @@
 <template>
+  <Header-wide />
   <div class="profile">
     <h1>Мой профиль</h1>
     <form @submit.prevent="updateProfile">
@@ -17,10 +18,6 @@
       <div class="form-group">
         <label for="last_name">Фамилия</label>
         <input type="text" v-model="user.last_name" id="last_name" />
-      </div>
-      <div class="form-group">
-        <label for="date_of_birth">Дата рождения</label>
-        <input type="date" v-model="user.date_of_birth" id="date_of_birth" />
       </div>
       <button type="submit">Сохранить данные</button>
     </form>
@@ -44,14 +41,18 @@
       <p v-if="success">{{ success }}</p>
     </form>
   </div>
+  <Footer />
 </template>
 
 <script>
 import api from '../api';
+import Footer from "@/components/Footer.vue";
+import HeaderWide from "@/components/Header-wide.vue";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'account',
+  components: {HeaderWide, Footer},
   data() {
     return {
       user: {
@@ -121,11 +122,12 @@ export default {
 .profile {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
 }
 .form-group {
   margin-bottom: 20px;
+  padding: 0 10px;
 }
 .avatar {
   display: flex;
