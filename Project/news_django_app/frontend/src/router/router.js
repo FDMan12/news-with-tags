@@ -16,8 +16,8 @@ const routes = [
   { path: '/choose-tags', component: ChooseTags, name: ChooseTags },
   { path: '/news', component: News, name: News },
   { path: '/magazines', component: Magazines, name: Magazines },
-  { path: '/account', component: Account, name: Account },
-  { path: '/add_news', component: Add_news, name: Add_news },
+  { path: '/profile', component: Account, name: Account },
+  { path: '/create-post', component: Add_news, name: Add_news },
   { path: '/admin', component: Admin, name: Admin },
 ];
 

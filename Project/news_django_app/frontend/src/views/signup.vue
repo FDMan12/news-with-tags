@@ -45,6 +45,7 @@
 
 <script>
 import Footer from '../components/Footer.vue';
+// eslint-disable-next-line no-unused-vars
 import api from "@/api";
 import axios from 'axios';
 
@@ -102,6 +103,11 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .registration-page {
   display: flex;
   flex-direction: column;

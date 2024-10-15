@@ -49,6 +49,11 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .tags-page {
   display: flex;
   flex-direction: column;
