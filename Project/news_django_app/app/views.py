@@ -156,8 +156,14 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({"status": "User removed as editor"})
         return Response({"status": "User is not an editor"}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated], url_path='profile')
+    def get_profile(self, request):
+        user = request.user
+        serializer = self.get_serializer(user)
+        return Response(serializer.data)
 
-class TagViewSet(generics.ListAPIView):
+
+class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
