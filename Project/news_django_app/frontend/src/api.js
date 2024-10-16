@@ -43,11 +43,11 @@ apiClient.interceptors.request.use(
 export default {
   getNews() {
     console.log('Получение новостей');
-    return apiClient.get('/posts');
+    return apiClient.get('/posts', { withCredentials: true });
   },
   getNewsById(id) {
     console.log(`Получение новости с ID: ${id}`);
-    return apiClient.get(`/posts/${id}/`);
+    return apiClient.get(`/posts/${id}/`, { withCredentials: true });
   },
   getUserProfile() {
     console.log('Получение профиля');

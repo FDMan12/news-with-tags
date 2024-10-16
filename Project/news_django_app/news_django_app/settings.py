@@ -145,10 +145,20 @@ REST_FRAMEWORK = {
 }
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
+    'http://79.174.85.109:8080',
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://79.174.85.109:8080',
+    'http://localhost:8080',
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://79\.174\.85\.109:8080$",
+]
 
 LOGGING = {
     'version': 1,
