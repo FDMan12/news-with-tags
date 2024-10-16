@@ -5,20 +5,20 @@
       <h2>Регистрация</h2>
       <form @submit.prevent="register">
         <div class="form-group">
-          <label for="username">Имя пользователя</label>
+          <label for="name">Имя пользователя</label>
           <input type="text" id="name" v-model="name" required />
         </div>
         <div class="form-group">
-          <label for="username">Фамилия пользователя</label>
+          <label for="surname">Фамилия пользователя</label>
           <input type="text" id="surname" v-model="surname" required />
         </div>
-        <div class="form-group">
+        <div class="patronymic">
           <label for="username">Отчество пользователя</label>
           <input type="text" id="patronymic" v-model="patronymic" required />
         </div>
         <div class="form-group">
-          <label for="email">Логин</label>
-          <input type="email" id="login" v-model="login" required />
+          <label for="login">Логин</label>
+          <input type="text" id="login" v-model="login" required />
         </div>
         <div class="form-group">
           <label for="email">Почта</label>
@@ -37,6 +37,15 @@
           <p v-else class="password-no-match">Пароли не совпадают</p>
         </div>
         <button type="submit" :disabled="!passwordsMatch">Зарегистрироваться</button>
+        <div class="form-group">
+          <label for="confirmPassword">Повторите пароль</label>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Есть аккаунт? <router-link to="/login">Авторизироваться</router-link></label>
+        </div>
+        <div class="form-group">
+          <router-link to="/">На главную</router-link>
+        </div>
       </form>
     </div>
     <Footer />
@@ -48,6 +57,7 @@ import Footer from '../components/Footer.vue';
 // eslint-disable-next-line no-unused-vars
 import api from "@/api";
 import axios from 'axios';
+import router from "@/router/router";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -79,6 +89,9 @@ export default {
     checkPasswordsMatch() {
       this.passwordsMatch = this.password === this.confirmPassword;
     },
+    isLoggedIn() {
+    return !!localStorage.getItem('authToken');
+    },
     async register() {
       try {
         const response = await axios.post('api/register/', {
@@ -92,7 +105,8 @@ export default {
         });
         console.log('User registered:', response.data);
         localStorage.setItem('authToken', response.data.token);
-        this.$router.push({ name: 'HomePage' });
+        await router.push({path: '/'});
+        window.location.reload();
       } catch (error) {
         console.error('Error registering user:', error);
       }
@@ -103,9 +117,19 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Helvetica', sans-serif;
+}
+
+
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+a, a:link, a:visited  {
+    text-decoration: none;
 }
 
 .registration-page {
@@ -119,7 +143,7 @@ body {
 }
 .registration-form {
   background-color: #B5A688;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 300px;
@@ -134,7 +158,7 @@ label {
 }
 input {
   width: 100%;
-  padding: 8px;
+  padding: 5px;
   box-sizing: border-box;
 }
 .password-match {

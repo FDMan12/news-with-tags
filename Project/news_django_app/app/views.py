@@ -3,9 +3,10 @@ from django.views import View
 from difflib import get_close_matches
 import json
 from rest_framework import viewsets, generics, permissions, status, filters
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
@@ -82,8 +83,11 @@ def change_password(request):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def login_user(request):
+    print("Попытка авторизации\n")
     data = request.data
+    print('\n', data, '\n')
     username = data.get('username')
     password = data.get('password')
 
@@ -92,13 +96,16 @@ def login_user(request):
     if user is not None:
         # Если пользователь существует и данные верны, генерируем токен
         token, created = Token.objects.get_or_create(user=user)
+        print(f'Successful login for {username}')
         return Response({"token": token.key}, status=status.HTTP_200_OK)
     else:
         # Если аутентификация не удалась
+        print(f'Failed login attempt for {username}')
         return Response({"error": "Неправильный логин или пароль"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def register_user(request):
     data = request.data
 
@@ -106,13 +113,16 @@ def register_user(request):
     if data['password'] != data['confirm_password']:
         return Response({"error": "Пароли не совпадают"}, status=status.HTTP_400_BAD_REQUEST)
 
+    print(data)
     # Создание нового пользователя
     user = User.objects.create_user(
-        username=data['login'],
-        email=data['email'],
+        login=data['login'],
+        email=data['mail'],
         password=data['password'],
-        first_name=data['name'],
-        last_name=data['surname'],
+        username=data['login'],
+        name=data['name'],
+        surname=data['surname'],
+        patronymic=data['patronymic'],
     )
 
     # Генерация токена для нового пользователя
@@ -131,7 +141,7 @@ class IsAdmin(permissions.BasePermission):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsAuthenticated, IsAdmin]
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -208,10 +218,13 @@ class ProfileView(APIView):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsEditorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        if self.request.user.is_authenticated:
+            serializer.save(author=self.request.user)
+        else:
+            raise PermissionDenied("Только авторизованные пользователи могут создавать новости.")
 
 
 class UserStatusViewSet(viewsets.ModelViewSet):
@@ -226,16 +239,20 @@ class BaseTemplateView(View):  # Base
     template_name = 'index.html'
 
     def get_context_data(self, request):
+        post_data = Post.objects.all()
+        get_data = request.GET.dict()
         # Собираем все параметры запроса в контекст
         return {
-            'post_data': request.body,
-            'get_data': json.dumps(request.GET)  # Сериализуем в JSON
+            'post_data': post_data,
+            'get_data': get_data  # Сериализуем в JSON
         }
 
     def get(self, request):
         # Возвращаем шаблон без изменений для GET-запросов
-        return render(request, self.template_name)
+        context = self.get_context_data(request)
+        return render(request, self.template_name, context)
 
     def post(self, request):
         # Отправляем клиенту отрендеренный с контекстом шаблон
-        return render(request, self.template_name, self.get_context_data(request))
+        context = self.get_context_data(request)
+        return render(request, self.template_name, context)

@@ -6,8 +6,8 @@
       <div class="magazines-list">
 
         <div>
-          <h1>{{ news.name }}</h1>
-          <p>{{ news.description }}</p>
+          <h1>{{ news.name || 'Loading...' }}</h1>
+          <p>{{ news.description || 'Loading description...' }}</p>
           <div v-if="news.file">
             <a :href="news.file" target="_blank">Download File</a>
           </div>
@@ -25,11 +25,14 @@ import Footer from '../components/Footer.vue';
 import api from "@/api";
 
 export default {
-  name: 'MagazinesPage',
+  name: 'NewsDetail',
   components: {
     Header,
     Sidebar,
     Footer,
+  },
+  created() {
+    this.fetchNews();
   },
   props: {
     id: {
@@ -42,19 +45,29 @@ export default {
       news: {}
     };
   },
-  async mounted() {
-    try {
-      const response = await api.get(`/posts/${this.id}/`);
-      this.news = response.data;
-    } catch (error) {
-      console.error('Error fetching news detail:', error);
+  methods: {
+    async fetchNews() {
+      const id = this.$route.params.id;
+      console.log('Fetching news with ID:', id);
+      try {
+        const response = await api.getNewsById(id);
+        this.news = response.data;
+      } catch (error) {
+        console.error('Ошибка при загрузке новости:', error);
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+* {
+  font-family: 'Helvetica', sans-serif;
+}
+
+
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }

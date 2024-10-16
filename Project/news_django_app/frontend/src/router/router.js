@@ -14,7 +14,7 @@ const routes = [
   { path: '/signup', component: Signup, name: Signup },
   { path: '/login', component: Login, name: Login },
   { path: '/choose-tags', component: ChooseTags, name: ChooseTags },
-  { path: '/news', component: News, name: News },
+  { path: '/news/:id', component: News, name: News },
   { path: '/magazines', component: Magazines, name: Magazines },
   { path: '/profile', component: Account, name: Account },
   { path: '/create-post', component: Add_news, name: Add_news },

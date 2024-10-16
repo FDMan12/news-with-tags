@@ -5,22 +5,22 @@
       <Sidebar />
         <div class="news-content">
           <h1>Новости для вас</h1>
-          <input v-model="searchQuery" placeholder="Тег для поиска" />
+          <input v-model="searchQuery" placeholder="Поиск по тегу" />
           <button @click="search">Поиск</button>
           <TagsList @tag-selected="fetchNewsByTag" />
-          <router-link to="/create-post">Создать новость</router-link>
+          <router-link v-if="isEditorOrAdmin" to="/create-post">Создать новость</router-link>
           <div class="news-grid">
             <div class="news-card" v-for="news in newsList" :key="news.id">
               <div class="news-image"></div>
               <div class="news-details">
                 <h3>
-                  <router-link :to="{ name: 'NewsDetail', params: { id: news.id } }">{{ news.title }}</router-link>
+                <router-link :to="'/news/' + news.id">{{ news.name }}</router-link>
                 </h3>
-                <p>
-                  <router-link :to="{ name: 'NewsDetail', params: { id: news.id } }">{{ news.description }}</router-link>
-                </p>
               </div>
-              <button @click="deletePost(post.id)">Delete</button>
+              <router-link v-if="isEditorOrAdmin" to="#">
+                <button @click="deletePost(news.id)">Delete</button>
+              </router-link>
+
             </div>
           </div>
         </div>
@@ -33,7 +33,10 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import Sidebar from "@/components/Sidebar.vue";
+// eslint-disable-next-line no-unused-vars
 import api from "@/api";
+// eslint-disable-next-line no-unused-vars
+import router from '@/router/router';
 
 export default {
   name: "NewsSelectionPage",
@@ -41,10 +44,13 @@ export default {
   data() {
     return {
       newsList: [],
-      searchQuery: ''
+      searchQuery: '',
+      userProfile: null,
+      isEditorOrAdmin: false
     };
   },
   created() {
+    this.fetchUserProfile();
     this.fetchNews();
   },
   watch: {
@@ -52,6 +58,7 @@ export default {
       immediate: true,
       handler(query) {
         if (query) {
+          this.searchQuery = query;
           this.fetchNewsByTag(query);
         } else {
           this.fetchNews();
@@ -59,19 +66,37 @@ export default {
       }
     }
   },
-  async mounted() {
-    try {
-      const response = await api.get('/posts/');
-      this.newsList = response.data;
-    } catch (error) {
-      console.error('Error fetching news:', error);
-    }
-  },
   methods: {
+    async fetchUserProfile() {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        console.log('Fetching user profile with token:', token);
+        try {
+          const response = await api.getUserProfile();
+          this.userProfile = response.data;
+          console.log(this.userProfile.role);
+          if (this.userProfile.role === 'Admin' || this.userProfile.role === 'Editor') {
+            this.isEditorOrAdmin = true;
+          }
+        } catch (error) {
+          console.error('Ошибка при загрузке профиля:', error);
+        }
+      } else {
+        console.log('Пользователь не авторизован.');
+      }
+    },
+    isLoggedIn() {
+      return !!localStorage.getItem('authToken');
+    },
     async fetchNews() {
       try {
-        const response = await api.get('/posts/');
+        const response = await api.getNews();
         this.newsList = response.data;
+        console.log('Fetched news: ', response.data);
+
+        this.newsList.forEach(news => {
+          console.log('News ID:', news.id);
+        });
       } catch (error) {
         console.error('Error fetching news:', error);
       }
@@ -80,12 +105,13 @@ export default {
       try {
         const response = await api.get(`/posts/tag/${tagName}/`);
         this.newsList = response.data;
+        console.log('Fetched news by tag: ', response.data);
       } catch (error) {
         console.error('Error fetching news by tag:', error);
       }
     },
     search() {
-      this.$router.push({ path: '/', query: { q: this.searchQuery } });
+      router.push({path: '/', query: {q: this.searchQuery}});
     },
     async deletePost(postId) {
       try {
@@ -95,22 +121,33 @@ export default {
         console.error('Error deleting post:', error);
       }
     }
-
-
   }
-
-};
+}
 </script>
 
 <style scoped>
+* {
+	padding: 0;
+	margin: 0;
+	border: none;
+  font-family: 'Helvetica', sans-serif;
+}
+
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  margin: 0;
-  padding: 0;
+a, a:link, a:visited  {
+    text-decoration: none;
 }
 
 .news-selection-page {
@@ -214,6 +251,15 @@ footer nav ul li a {
 }
 .news-details {
   text-align: center;
+}
+
+button {
+  background-color: #6D8444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 </style>

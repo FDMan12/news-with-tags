@@ -14,4 +14,16 @@ export default {
 #app {
   
 }
+
+* {
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
 </style>

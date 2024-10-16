@@ -1,0 +1,280 @@
+[33mcommit b3e1272b8687d18dc88c7fd1138b4d949199ee24[m[33m ([m[1;36mHEAD -> [m[1;32mBackend[m[33m)[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Thu Oct 3 10:02:41 2024 +0300
+
+    Backend updated
+
+[33mcommit 27e42ee549da47c59f92105f87a275cf1fb59276[m[33m ([m[1;31morigin/development[m[33m, [m[1;32mdevelopment[m[33m)[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Thu Oct 3 01:08:02 2024 +0300
+
+    Updated documentation
+
+[33mcommit f6a71ddcb9a3c45fa20bab8447edf5a8c4113f7e[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Thu May 30 21:52:18 2024 +0300
+
+    Removed wrong file
+
+[33mcommit 8f033f956df2387a2fcdf6c3aa17ad80bb463bed[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Thu May 30 21:46:36 2024 +0300
+
+    Presentation
+
+[33mcommit 70805c11482aeb72586e676466b796e305ab85b4[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Thu May 30 15:50:15 2024 +0300
+
+    Course project
+
+[33mcommit 075660be1b641937d33541fd4295068eb86cebf8[m
+Author: FDMan12 <92061305+FDMan12@users.noreply.github.com>
+Date:   Wed May 8 15:17:44 2024 +0300
+
+    Update README.md
+
+[33mcommit 57439e8a10a7d90ab686e3f23dd5ea5cb2ceccc6[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed May 8 15:15:01 2024 +0300
+
+    Fixed router old paths
+
+[33mcommit 81bbebe82855da7fce842371e2b0987e6febfb75[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed May 8 14:43:20 2024 +0300
+
+    Project build
+
+[33mcommit f0b265741472806854bb23ee6c55dfec5119791a[m[33m ([m[1;32mmain[m[33m)[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Tue Apr 30 21:05:56 2024 +0300
+
+    Added course project
+
+[33mcommit bf2b5c42dd34f0b11bbc7bf63c928b9f6e2741bf[m
+Merge: 07375dd8 5b30c5ca
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Tue Apr 30 20:58:24 2024 +0300
+
+    Merge branch 'development' of https://github.com/FDMan12/news-with-tags into development
+
+[33mcommit 07375dd8cce5382b112b78a11d35533c7c6b7b75[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Tue Apr 30 20:58:06 2024 +0300
+
+    Corrected typo (Group number and team number changed from 4 and 3 to 4 and 3)
+
+[33mcommit 5b30c5ca6efc03eb3913feee40e774a7e04edbba[m
+Author: FDMan12 <92061305+FDMan12@users.noreply.github.com>
+Date:   Tue Apr 30 20:19:24 2024 +0300
+
+    Update README.md
+    
+    Updated for new video presentation
+
+[33mcommit 4215910bae9794d75681fa237eb00b14402efc3e[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Sun Apr 28 23:19:26 2024 +0300
+
+    Added router for Vue, added vue templates (in src/views)
+
+[33mcommit 1a9ef98783873e084cacde0f00f393a9d9cb1a93[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Sun Apr 28 22:26:27 2024 +0300
+
+    Added new templates, changed views and urls
+
+[33mcommit 3109da54b7cfebdfa159e9c0f7dbb0f2ad9a4767[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Apr 24 20:51:04 2024 +0300
+
+    Added possibly necessary utilities
+
+[33mcommit 275df71cfd727e5b8ab8342c476b45e02f4575c5[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Apr 24 20:23:18 2024 +0300
+
+    Added script to start app and open link
+
+[33mcommit d631a9ff7cb621349227bfb0b497209587b91286[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Apr 24 20:10:18 2024 +0300
+
+    Workable initial application
+
+[33mcommit e65434e5eaeddd7557c93706c480a66d5909188f[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Apr 15 22:30:23 2024 +0300
+
+    Recreation of apps
+
+[33mcommit 5e2f985dfd03875edc168c166fdae2da63b43e37[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Apr 15 01:57:05 2024 +0300
+
+    Added func and pages utils
+
+[33mcommit a042368a15044fb7b9b49d84d677f44b529d5f28[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Apr 15 01:54:10 2024 +0300
+
+    Removed unnecessary and bugged files
+
+[33mcommit dae126e54d57ffb32f7da1d14fd582dac9107654[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Apr 15 01:31:25 2024 +0300
+
+    Added project
+
+[33mcommit 3203b6f32406b13dd0437267b4ed77a280e6d0be[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Thu Mar 21 21:11:23 2024 +0300
+
+    Reworked UML deployment chart
+
+[33mcommit 321321927da70bf6aaa8c5107d23d1cb1836f8bb[m
+Merge: 65fd6c3b d7950837
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 20 11:51:05 2024 +0300
+
+    Merge branch 'main' of https://github.com/FDMan12/news-with-tags
+
+[33mcommit 65fd6c3bf80dff5d0e825f8c341092af7de0c17e[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 20 11:50:46 2024 +0300
+
+    Fixed definitions list (added definition of automatic system),\n fixed functional scheme scale (splitted, now 3 images of scheme)
+
+[33mcommit d7950837e855f102fadd8158100dc2a5cb69a746[m
+Author: FDMan12 <92061305+FDMan12@users.noreply.github.com>
+Date:   Mon Mar 18 20:00:53 2024 +0300
+
+    Update README.md
+    
+    Added Trello list element in "#Сервисы" list
+
+[33mcommit 450e909d9f5a942f30b0e3d71745074eb42f2ea5[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 19:54:14 2024 +0300
+
+    Removed temp doc file
+
+[33mcommit ac1c43a7e08aaba69470dab1b8b8f6981dd4fe8f[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 19:22:28 2024 +0300
+
+    Fix
+
+[33mcommit b3107f2517f7d7ac4efdaadfbfd9912551cd2344[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 18:46:57 2024 +0300
+
+    Fixed presentations
+
+[33mcommit bae22048322ef6ff2e38a8fc9fb2c5f39259a722[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 15:45:49 2024 +0300
+
+    Fixed video
+
+[33mcommit fffad8af1627b611993ae6f769905895dfc99cbf[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 15:44:08 2024 +0300
+
+    Fixed video
+
+[33mcommit fc2fec2a6fa50a342d4aa15c6dc314fcf193cb49[m
+Merge: efc46bc3 e35c2ebb
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 15:36:38 2024 +0300
+
+    Merge branch 'main' of https://github.com/FDMan12/news-with-tags
+
+[33mcommit efc46bc3e9cdd0213f6bb4fd9dc4c577535ffe69[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Mon Mar 18 15:36:20 2024 +0300
+
+    Added old version due to bug
+
+[33mcommit e35c2ebb0a0993b250d3a21ba9a8477983a25346[m
+Author: FDMan12 <92061305+FDMan12@users.noreply.github.com>
+Date:   Mon Mar 18 15:32:34 2024 +0300
+
+    Update README.md
+    
+    Fixed letter link
+
+[33mcommit 255ccfa01d53353ecdfa4d8adb3bd47b4446c69c[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Sun Mar 17 22:22:07 2024 +0300
+
+    Fixed documentation:
+
+[33mcommit 3f78f9f31666e597c95c6fa9d016e651f70a6f87[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Sun Mar 17 21:20:13 2024 +0300
+
+    UML state and deployment diagrams
+
+[33mcommit 2547e70c476cb2ad5714f681195bb78771075350[m
+Merge: 600aefe9 3fdeabfb
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 13 23:32:57 2024 +0300
+
+    Merge branch 'main' of https://github.com/FDMan12/news-with-tags
+
+[33mcommit 600aefe9403913575811715822dbe782c2d46fa7[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 13 23:32:44 2024 +0300
+
+    Design tasks
+
+[33mcommit 3fdeabfb23931bcd520af9cd2749deb9af268b23[m
+Author: FDMan12 <92061305+FDMan12@users.noreply.github.com>
+Date:   Wed Mar 13 23:24:05 2024 +0300
+
+    Update README.md
+    
+    Fixed video link
+
+[33mcommit 09face5f32663a9f1cbb5aa6c285c2dde218d1c4[m
+Author: FDMan12 <92061305+FDMan12@users.noreply.github.com>
+Date:   Wed Mar 13 23:23:22 2024 +0300
+
+    Rename Видеопрезентация.m4v to Videoprezentatsia.m4v
+    
+    Changed media name
+
+[33mcommit 983b77cb7f7d95643de4857dbb1adf2fba067c96[m
+Author: 13rattlehead <69170005+13rattlehead@users.noreply.github.com>
+Date:   Wed Mar 13 23:22:50 2024 +0300
+
+    Update README.md
+
+[33mcommit 802dab9132c3ac9e837550aa5e90f0adeadf3887[m
+Merge: 964b8982 2412788b
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 13 23:22:15 2024 +0300
+
+    Merge branch 'main' of https://github.com/FDMan12/news-with-tags
+
+[33mcommit 964b8982f64d6e3187ca285fcac89dfe61c7beb8[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 13 23:21:37 2024 +0300
+
+    Fix video
+
+[33mcommit 2412788bec4362e8d279c99d4768777e3c97a8d7[m
+Author: 13rattlehead <69170005+13rattlehead@users.noreply.github.com>
+Date:   Wed Mar 13 23:20:12 2024 +0300
+
+    Add files via upload
+
+[33mcommit 15d2184728f2cd2d3f6dccbfba7c4414f18bf5bb[m
+Author: FDMan12 <vdmmsh2003@mail.ru>
+Date:   Wed Mar 13 23:16:42 2024 +0300
+
+    Deleted wrong file
+
+[33mcommit 527c112e1f0a1

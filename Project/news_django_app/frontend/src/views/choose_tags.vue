@@ -49,7 +49,13 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Helvetica', sans-serif;
+}
+
+
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }

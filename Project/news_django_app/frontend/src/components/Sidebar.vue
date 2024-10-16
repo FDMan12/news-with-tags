@@ -1,7 +1,6 @@
 <!-- src/components/Sidebar.vue -->
 <template>
   <aside class="sidebar">
-    <input type="text" placeholder="Поиск" />
     <h3>Мои новости</h3>
     <nav>
       <h4>Избранные теги</h4>
@@ -18,8 +17,9 @@
         <li>Воронеж</li>
         <li>Пермь</li>
       </ul>
-      <h4>Мои журналы</h4>
-      <ul>
+      <h4 v-if="isLoggedIn()">Мои журналы</h4>
+      <h4 v-if="!isLoggedIn()">Зарегистрируйтесь для получения доступа к журналам</h4>
+      <ul v-if="isLoggedIn()">
         <li>New York Times</li>
         <li>Биография</li>
         <li>Esquire</li>
@@ -30,13 +30,34 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import router from "@/router/router";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Sidebar'
+  name: 'Sidebar',
+  methods: {
+    isLoggedIn() {
+      return !!localStorage.getItem('authToken');
+    },
+  }
 };
 </script>
 
 <style scoped>
+* {
+	padding: 0;
+	margin: 0;
+	border: none;
+  font-family: 'Helvetica', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 .sidebar {
   width: 200px;
   background-color: #E5E5E5;
