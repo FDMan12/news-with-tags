@@ -7,7 +7,7 @@ const template_path = '../../templates/index.html'
 module.exports = {
   // Paths
   // Рабочая директория сборки
-  // Я обычно указываю директорию приложения django, которое отвеает за фронт
+  // Директория приложения django, которое отвеает за фронт
   outputDir: process.env.NODE_ENV === 'production' ? static_dir : 'dist/',
   // Куда пойдёт шаблон проекта
   indexPath: process.env.NODE_ENV === 'production' ? template_path : 'index.html',

@@ -5,21 +5,20 @@
       <Sidebar />
         <div class="news-content">
           <h1>Новости для вас</h1>
-          <input v-model="searchQuery" placeholder="Поиск по тегу" />
-          <button @click="search">Поиск</button>
-          <TagsList @tag-selected="fetchNewsByTag" />
+          <TagsList @update-tags="fetchNewsByTag" />
           <router-link v-if="isEditorOrAdmin" to="/create-post">Создать новость</router-link>
           <div class="news-grid">
-            <div class="news-card" v-for="news in newsList" :key="news.id">
+            <div class="news-card" v-for="news in newsFilteredList" :key="news.id">
               <div class="news-image"></div>
               <div class="news-details">
                 <h3>
                 <router-link :to="'/news/' + news.id">{{ news.name }}</router-link>
                 </h3>
               </div>
-              <router-link v-if="isEditorOrAdmin" to="#">
-                <button @click="deletePost(news.id)">Delete</button>
+              <router-link v-if="isEditorOrAdmin" :to="'/edit-post/' + news.id">
+                <button>Обновить</button>
               </router-link>
+              <button v-if="isEditorOrAdmin" @click="deletePost(news.id)">Удалить</button>
 
             </div>
           </div>
@@ -37,13 +36,18 @@ import Sidebar from "@/components/Sidebar.vue";
 import api from "@/api";
 // eslint-disable-next-line no-unused-vars
 import router from '@/router/router';
+import TagsList from "@/components/TagsList.vue";
+// eslint-disable-next-line no-unused-vars
+import axios from "axios";
 
 export default {
   name: "NewsSelectionPage",
-  components: {Sidebar, Footer, Header},
+  components: {TagsList, Sidebar, Footer, Header},
   data() {
     return {
       newsList: [],
+      selectedTags: [],
+      newsFilteredList: [],
       searchQuery: '',
       userProfile: null,
       isEditorOrAdmin: false
@@ -72,7 +76,7 @@ export default {
       if (token) {
         console.log('Fetching user profile with token:', token);
         try {
-          const response = await api.getUserProfile();
+          const response = await api.getUserProfile(token);
           this.userProfile = response.data;
           console.log(this.userProfile.role);
           if (this.userProfile.role === 'Admin' || this.userProfile.role === 'Editor') {
@@ -101,22 +105,59 @@ export default {
         console.error('Error fetching news:', error);
       }
     },
-    async fetchNewsByTag(tagName) {
-      try {
-        const response = await api.get(`/posts/tag/${tagName}/`);
-        this.newsList = response.data;
-        console.log('Fetched news by tag: ', response.data);
-      } catch (error) {
-        console.error('Error fetching news by tag:', error);
+    async fetchNewsByTag(selectedTags) {
+      console.log('Fetching news by tag...');
+      console.log('Selected tags:', selectedTags);
+      const response = await api.getNews();
+      this.newsList = response.data;
+      if (!selectedTags || selectedTags.length === 0) {
+        console.log('No tags, fetching news...');
+        this.newsFilteredList = this.newsList;
+        console.log('Fetched news without tags: ', this.newsFilteredList);
+      } else {
+        try {
+          console.log('Selected tags are not empty, starting filter process...');
+          console.log('Fetched news (yet without tags): ', this.newsList);
+          this.newsFilteredList = this.newsList.filter(news => {
+            console.log('Checking news:', news.name, 'with tags:', news.tags);
+
+            selectedTags.forEach(tag => {
+              console.log('Checking if news contains tag:', tag.id);
+            });
+
+            const isMatch = selectedTags.every(tag => news.tags.includes(tag.id));
+
+            console.log('Does news match selected tags?', isMatch);
+            return isMatch;
+          });
+          console.log('Fetched news by tag: ', this.newsFilteredList);
+        } catch (error) {
+          console.error('Error fetching news by tag:', error);
+        }
       }
+
     },
     search() {
       router.push({path: '/', query: {q: this.searchQuery}});
     },
     async deletePost(postId) {
       try {
-        await api.delete(`/posts/${postId}/`);
+        const token = localStorage.getItem('authToken');
+
+        if (!token) {
+          console.error('Token not found!');
+          return;
+        }
+
+        const headers = {
+          Authorization: `Token ${token}`
+        };
+
+        await api.deletePost(postId, { headers });
+
         await this.fetchNews();
+
+        window.location.reload();
       } catch (error) {
         console.error('Error deleting post:', error);
       }
@@ -260,6 +301,7 @@ button {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+  margin: 5px;
 }
 
 </style>

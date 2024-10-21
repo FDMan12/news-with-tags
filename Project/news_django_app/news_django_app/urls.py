@@ -42,6 +42,7 @@ router.register(r'posts', PostViewSet)
 router.register(r'userstatuses', UserStatusViewSet)
 urlpatterns = [
     path('', BaseTemplateView.as_view()), # main
+    path('api/users/profile/', UserViewSet.as_view({'get': 'get_profile', 'put': 'update', 'delete': 'destroy'}), name='user-profile'),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api/', include('djoser.urls')),
@@ -50,11 +51,12 @@ urlpatterns = [
     path('api/register/', register_user, name='register_user'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/users/profile/', UserViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='user-profile'),
     path('api/signup/', register_user, name='user-signup'),
     path('api/login/', login_user, name='user-login'),
     path('posts/<int:pk>/', PostViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='post-detail'),
     path('posts/tag/<str:tag_name>/', posts_by_tag, name='posts-by-tag'),
+    path('magazines/<int:pk>/', MagazineViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='magazine-detail'),
+    path('magazines/tag/<str:tag_name>/', magazines_by_tag, name='magazines-by-tag'),
     path('tags/', TagViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='tag-list'),
     path('search/', search_posts_by_tag, name='search-posts-by-tag'),
     path('change-password/', change_password, name='change-password'),

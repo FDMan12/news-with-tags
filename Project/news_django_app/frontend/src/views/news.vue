@@ -3,7 +3,7 @@
     <Header />
     <div class="main-content">
       <Sidebar />
-      <div class="magazines-list">
+      <div class="news-list">
 
         <div>
           <h1>{{ news.name || 'Loading...' }}</h1>
@@ -92,7 +92,7 @@ body {
   width: 250px;
 }
 
-.magazines-list {
+.news-list {
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
@@ -100,7 +100,7 @@ body {
   align-items: center;
 }
 
-.magazine-card {
+.news-card {
   width: 200px;
   height: 300px;
   background-color: green;

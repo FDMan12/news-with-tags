@@ -5,8 +5,8 @@
       <h1>Мои Новости</h1>
       <nav>
         <router-link to="/">Новости для вас</router-link>
-        <router-link to="/my-magazines">Мои журналы</router-link>
-        <router-link to="/latest-news">Сегодняшнее</router-link>
+        <router-link v-if="isLoggedIn()" to="/magazines">Журналы</router-link>
+        <router-link to="/choose-tags">Выбор тегов</router-link>
         <router-link v-if="!isLoggedIn()" to="/signup">Регистрация</router-link>
         <router-link v-if="isLoggedIn()" to="/profile" class="account-link">Мой аккаунт</router-link>
         <button v-if="isLoggedIn()" @click="logout">Выйти</button>
@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import api from "@/api";
 // eslint-disable-next-line no-unused-vars
 import router from "@/router/router";
 
@@ -31,21 +30,6 @@ export default {
   mounted() {
     const token = localStorage.getItem('authToken');
     this.isLoggedIn = !!token;
-
-    if (token) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-      api.getUserProfile()
-      .then(response => {
-        this.userProfile = response.data;
-      })
-      .catch(error => {
-        console.error('Ошибка при загрузке профиля:', error);
-      });
-
-    } else {
-      console.log('Пользователь не авторизован.');
-    }
   },
   methods: {
     isLoggedIn() {

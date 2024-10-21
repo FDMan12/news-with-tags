@@ -21,7 +21,7 @@
           <div class="form-group">
             <label for="tags">Теги:</label>
             <select id="tags" v-model="selectedTag">
-              <option v-for="tag in tags" :key="tag" :value="tag">{{ tag }}</option>
+              <option v-for="tag in tags" :key="tag.id" :value="tag.id">{{ tag.tag_name }}</option>
             </select>
           </div>
           <button type="submit">Опубликовать</button>
@@ -50,13 +50,14 @@ export default {
       title: '',
       content: '',
       selectedTag: '',
-      tags: ['Спорт', 'Музыка', 'Кино', 'Наука', 'Москва', 'Липецк', 'Воронеж', 'Пермь'],
+      tags: [],
     };
   },
   created() {
     if (this.$route.params.id) {
       this.fetchPost();
     }
+    this.fetchTags();
   },
   methods: {
     // eslint-disable-next-line no-unused-vars
@@ -70,13 +71,34 @@ export default {
         await this.createPost();
       }
     },
+    async fetchTags() {
+      try {
+        const response = await api.getTags();
+        this.tags = response.data;
+      } catch (error) {
+        console.error('Error fetching tags:', error);
+      }
+    },
     async createPost() {
       try {
-        await api.post('/api/posts/', {
-          title: this.title,
-          content: this.content,
-          selectedTag: this.selectedTag
-        });
+        const postData = {
+          name: this.title,
+          description: this.content,
+          tags: [this.selectedTag]
+        };
+
+        const token = localStorage.getItem('authToken');
+
+        if (!token) {
+          console.error('Token not found!');
+          return;
+        }
+
+        const headers = {
+          Authorization: `Token ${token}`
+        };
+
+        await api.createPost(postData, { headers });
         this.$router.push('/');
       } catch (error) {
         console.error('Error creating post:', error);
@@ -84,22 +106,37 @@ export default {
     },
     async fetchPost() {
       try {
-        const response = await api.get(`/posts/${this.$route.params.id}/`);
-        this.post = response.data;
+        const response = await api.getNewsById(this.$route.params.id);
+        this.title = response.data.name;
+        this.content = response.data.description;
+        this.selectedTag = response.data.tags[0];
       } catch (error) {
         console.error('Error fetching post:', error);
       }
     },
     async updatePost() {
       try {
-        await api.put(`/api/posts/${this.$route.params.id}/`, {
-          title: this.title,
-          content: this.content,
-          selectedTag: this.selectedTag
-        });
-        this.$router.push('/');
+          const postData = {
+              name: this.title,
+              description: this.content,
+              tags: [this.selectedTag]
+          };
+
+          const token = localStorage.getItem('authToken');
+
+          if (!token) {
+            console.error('Token not found!');
+            return;
+          }
+
+          const headers = {
+            Authorization: `Token ${token}`
+          };
+
+          await api.updatePost(this.$route.params.id, postData, { headers });
+          this.$router.push('/');
       } catch (error) {
-        console.error('Error updating post:', error);
+          console.error('Error updating post:', error);
       }
     }
 

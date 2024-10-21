@@ -24,5 +24,8 @@
 # Видеозаписи
 - Видеопрезентация: [m4v](Media/Videoprezentatsia.m4v)
 - Видеопрезентация окон: [YouTube](https://youtu.be/QFS7qEunuGc)
+- Обзор Backend: [mp4](Media/Backend.mp4)
+- Обзор Frontend: [mp4](Media/Frontend.mp4)
+- Обзор User Flow: [mp4](Media/User.mp4)
 # Лицензия
 [GNU General Public License v3.0](LICENSE)

@@ -65,20 +65,27 @@ export default {
 
         console.log('Получение заголовка...');
 
-        const response = api.login({
+        const response = await api.login({
           username: this.username,
           password: this.password,
         });
-
+        console.log("Данные ответа: ", response);
         console.log('Получение ответа от сервера...');
+        console.log("Данные: ", response.data)
+        console.log("Токен: ", response.data.token)
 
-        localStorage.setItem('authToken', response.data.token);
-        axios.defaults.headers.common['Authorization'] = `Token ${response.data.token}`;
+        if (response.data && response.data.token) {
+          localStorage.setItem('authToken', response.data.token);
+          console.log('Получение токена...');
 
-        console.log('Токен:', localStorage.getItem('authToken'));
+          axios.defaults.headers.common['Authorization'] = `Token ${response.data.token}`;
+          console.log('Токен:', localStorage.getItem('authToken'));
 
-        await router.push({ path: '/' });
-        window.location.reload();
+          await router.push({ path: '/' });
+          window.location.reload();
+        } else {
+          console.error('Токен не найден в ответе:', response.data);
+        }
 
         return response;
       } catch (error) {

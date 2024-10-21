@@ -68,8 +68,8 @@ class Magazine(models.Model):
 class Post(models.Model):
     name = models.CharField(default='name', max_length=100)
     description = models.TextField(default='default description')
-    file = models.FileField(upload_to='posts/')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    file = models.FileField(upload_to='posts/', blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
 
     def __str__(self):

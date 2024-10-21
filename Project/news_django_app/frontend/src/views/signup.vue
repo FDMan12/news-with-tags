@@ -58,6 +58,7 @@ import Footer from '../components/Footer.vue';
 import api from "@/api";
 import axios from 'axios';
 import router from "@/router/router";
+import Cookies from "js-cookie";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -94,7 +95,9 @@ export default {
     },
     async register() {
       try {
-        const response = await axios.post('api/register/', {
+        const csrftoken = Cookies.get('csrftoken');
+
+        const response = await axios.post('http://localhost:8080/api/register/', {
           name: this.name,
           surname: this.surname,
           patronymic: this.patronymic,
@@ -102,7 +105,10 @@ export default {
           login: this.login,
           password: this.password,
           confirm_password: this.confirmPassword
-        });
+        }, {
+        headers: {
+          'X-CSRFToken': csrftoken
+        }});
         console.log('User registered:', response.data);
         localStorage.setItem('authToken', response.data.token);
         await router.push({path: '/'});
@@ -139,7 +145,7 @@ a, a:link, a:visited  {
   justify-content: center;
   min-height: 100vh;
   background-color: #f5f5f5;
-  padding-bottom: 50px; /* чтобы был отступ для футера */
+  padding-bottom: 50px;
 }
 .registration-form {
   background-color: #B5A688;
