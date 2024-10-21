@@ -52,6 +52,10 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'name', 'description', 'file', 'author', 'tags']
+        extra_kwargs = {
+            'author': {'read_only': True},
+            'file': {'required': False},
+        }
 
 
 class UserStatusSerializer(serializers.ModelSerializer):
