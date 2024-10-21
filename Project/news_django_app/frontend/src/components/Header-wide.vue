@@ -4,15 +4,37 @@
   <header class="header-wide">
     <div class="header-content">
       <router-link to="/">Новости для вас</router-link>
-      <router-link to="/journals">Мои журналы</router-link>
-      <router-link to="/today">Сегодняшнее</router-link>
+      <router-link v-if="isLoggedIn()" to="/magazines">Мои журналы</router-link>
+      <router-link to="/choose-tags">Выбор тегов</router-link>
     </div>
   </header>
 </template>
 
 <script>
+import router from "@/router/router";
+
 export default {
-  name: 'HeaderWide'
+  name: 'HeaderWide',
+  data() {
+    return {
+      userProfile: null
+    };
+  },
+  mounted() {
+    const token = localStorage.getItem('authToken');
+    this.isLoggedIn = !!token;
+  },
+  methods: {
+    isLoggedIn() {
+      return !!localStorage.getItem('authToken');
+    },
+    logout() {
+      localStorage.removeItem('authToken');
+      router.push({ path: '/' }).then(() => {
+        window.location.reload();
+      });
+    },
+  }
 };
 </script>
 

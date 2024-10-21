@@ -71,15 +71,25 @@ export default {
     };
   },
   created() {
-    this.fetchProfile();
+    this.fetchUserProfile();
   },
   methods: {
-    async fetchProfile() {
-      try {
-        const response = await api.get('/api/profile/');
-        this.user = response.data;
-      } catch (error) {
-        console.error('Error fetching profile:', error);
+    async fetchUserProfile() {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        console.log('Fetching user profile with token:', token);
+        try {
+          const response = await api.getUserProfile(token);
+          this.userProfile = response.data;
+          console.log(this.userProfile.role);
+          if (this.userProfile.role === 'Admin' || this.userProfile.role === 'Editor') {
+            this.isEditorOrAdmin = true;
+          }
+        } catch (error) {
+          console.error('Ошибка при загрузке профиля:', error);
+        }
+      } else {
+        console.log('Пользователь не авторизован.');
       }
     },
     async updateProfile() {
@@ -112,7 +122,7 @@ export default {
       }
     },
     uploadAvatar() {
-      // Логика для загрузки аватара
+
     }
   }
 };
@@ -133,7 +143,7 @@ body {
 .profile {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 20px;
 }
 .form-group {

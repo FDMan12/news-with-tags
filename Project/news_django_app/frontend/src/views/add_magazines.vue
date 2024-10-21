@@ -15,10 +15,6 @@
             <textarea id="content" v-model="content" required></textarea>
           </div>
           <div class="form-group">
-            <label for="preview">Превью:</label>
-            <input type="file" id="preview" @change="handleFileUpload" />
-          </div>
-          <div class="form-group">
             <label for="tags">Теги:</label>
             <select id="tags" v-model="selectedTag">
               <option v-for="tag in tags" :key="tag.id" :value="tag.id">{{ tag.tag_name }}</option>
@@ -39,7 +35,7 @@ import Footer from '../components/Footer.vue';
 import api from '../api';
 
 export default {
-  name: 'CreatePostPage',
+  name: 'CreateMagazinePage',
   components: {
     Header,
     Sidebar,
@@ -55,7 +51,7 @@ export default {
   },
   created() {
     if (this.$route.params.id) {
-      this.fetchPost();
+      this.fetchMagazine();
     }
     this.fetchTags();
   },
@@ -66,9 +62,9 @@ export default {
     },
     async submitForm() {
       if (this.$route.params.id) {
-        await this.updatePost();
+        await this.updateMagazine();
       } else {
-        await this.createPost();
+        await this.createMagazine();
       }
     },
     async fetchTags() {
@@ -79,9 +75,9 @@ export default {
         console.error('Error fetching tags:', error);
       }
     },
-    async createPost() {
+    async createMagazine() {
       try {
-        const postData = {
+        const magazineData = {
           name: this.title,
           description: this.content,
           tags: [this.selectedTag]
@@ -98,25 +94,25 @@ export default {
           Authorization: `Token ${token}`
         };
 
-        await api.createPost(postData, { headers });
+        await api.createMagazine(magazineData, { headers });
         this.$router.push('/');
       } catch (error) {
-        console.error('Error creating post:', error);
+        console.error('Error creating magazine:', error);
       }
     },
-    async fetchPost() {
+    async fetchMagazine() {
       try {
-        const response = await api.getNewsById(this.$route.params.id);
+        const response = await api.getMagazinesById(this.$route.params.id);
         this.title = response.data.name;
         this.content = response.data.description;
         this.selectedTag = response.data.tags[0];
       } catch (error) {
-        console.error('Error fetching post:', error);
+        console.error('Error fetching magazine:', error);
       }
     },
-    async updatePost() {
+    async updateMagazine() {
       try {
-          const postData = {
+          const magazineData = {
               name: this.title,
               description: this.content,
               tags: [this.selectedTag]
@@ -133,10 +129,10 @@ export default {
             Authorization: `Token ${token}`
           };
 
-          await api.updatePost(this.$route.params.id, postData, { headers });
+          await api.updateMagazine(this.$route.params.id, magazineData, { headers });
           this.$router.push('/');
       } catch (error) {
-          console.error('Error updating post:', error);
+          console.error('Error updating magazine:', error);
       }
     }
 
